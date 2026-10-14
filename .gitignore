@@ -1,0 +1,13 @@
+# regenerable data (201 MB; rebuild with scripts/build_patches.py, ~4 min)
+data/*.npz
+
+# python
+__pycache__/
+*.pyc
+
+# jupyter
+.ipynb_checkpoints/
+
+# misc
+nohup.out
+*~
