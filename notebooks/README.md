@@ -11,6 +11,7 @@ Each ships with its outputs baked in, so you can read before running. Before tru
 | `02_quantum_layer.ipynb` | the circuit: reading it, validating it, timing it, running it on a real patch | ~2 min |
 | `03_train.ipynb` | **train**: the four-arm comparison (CNN, deep CNN, quanv, frozen quanv), harness in-cell | ~5 min on GPU |
 | `04_study.ipynb` | **the study, small**: AUC vs training size (10²→10⁵), vs parameter count, vs label purity — 63 cached runs | ~45 min cold, seconds cached |
+| `05_confusion.ipynb` | **confusion matrices**: 2×2 and species-resolved — which particles leak across track/shower | ~6 min |
 
 Written references the notebooks link into:
 - [`../docs/PRIMER.md`](../docs/PRIMER.md) — concepts, textbook-style
