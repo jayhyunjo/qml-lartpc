@@ -22,12 +22,14 @@ derived from internal DUNE MC, so do **not** post it publicly. With it in place,
 run; the two cells that read raw archives detect its absence and skip with a message (their baked
 outputs remain readable here).
 
-Compute: no GPU is required at the scales these notebooks use — the quantum layer is vectorised
-and CPU-viable (expect a few × slower than the timings quoted). For the larger sweeps, FNAL's
-Elastic Analysis Facility (JupyterHub with GPUs for DUNE users) is the natural home —
-*unverified pointer, check current status*. Longer term: the campaign archives are justIN
-production outputs, so they likely exist in DUNE Rucio/MetaCat storage reachable from FNAL —
-getting the dataset name removes the wcgpu1 dependency entirely.
+Compute: **no GPU is required for this series** — measured on 4 CPU threads (be polite on shared
+nodes: `torch.set_num_threads(4)` before training): notebook 03's quantum arm ≈ 1.4 min/seed,
+one notebook-04 run ≈ 6 min, the full 63-run 04 sweep ≈ 3 h — and the 04 cache
+(`results/study04.jsonl`) makes that sweep resumable after any interruption, so it suits a shared
+interactive node. GPU becomes worthwhile at the tuned-study stage (per-point hyperparameter
+search), which is a later phase. Longer term: the campaign archives are justIN production
+outputs, so they likely exist in DUNE Rucio/MetaCat storage reachable from FNAL — getting the
+dataset name removes the wcgpu1 dependency entirely.
 
 Written references the notebooks link into:
 - [`../docs/PRIMER.md`](../docs/PRIMER.md) — concepts, textbook-style
