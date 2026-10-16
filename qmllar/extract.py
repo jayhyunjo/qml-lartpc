@@ -47,7 +47,13 @@ def _find_base() -> str:
     )
 
 
-BASE = _find_base()
+# Resolved lazily (PEP 562): machines without the raw campaign data (e.g. FNAL
+# dunegpvm) can still import this module and run everything that only needs the
+# extracted patch file.  Accessing extract.BASE is what raises if data is absent.
+def __getattr__(name):
+    if name == "BASE":
+        return _find_base()
+    raise AttributeError(name)
 
 # Coarse classes, matching the PRD's binary track/shower task.
 TRACK_PDGS  = {13, 211, 2212, 321}

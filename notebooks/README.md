@@ -13,6 +13,22 @@ Each ships with its outputs baked in, so you can read before running. Before tru
 | `04_study.ipynb` | **the study, small**: AUC vs training size (10²→10⁵), vs parameter count, vs label purity — 63 cached runs | ~45 min cold, seconds cached |
 | `05_confusion.ipynb` | **confusion matrices**: 2×2 and species-resolved — which particles leak across track/shower | ~6 min |
 
+## Running somewhere other than wcgpu1 (e.g. FNAL dunegpvm)
+
+The **raw** campaign data (492 GB) lives on BNL `wcgpu1` and is only needed to *build* the patch
+file. Everything else needs just **`data/patches_31.npz` (201 MB)** — copy it privately (scp) into
+your area, e.g. `/exp/dune/data/users/<user>/` or `/pnfs/dune/persistent/users/<user>/`; it is
+derived from internal DUNE MC, so do **not** post it publicly. With it in place, notebooks 00–05
+run; the two cells that read raw archives detect its absence and skip with a message (their baked
+outputs remain readable here).
+
+Compute: no GPU is required at the scales these notebooks use — the quantum layer is vectorised
+and CPU-viable (expect a few × slower than the timings quoted). For the larger sweeps, FNAL's
+Elastic Analysis Facility (JupyterHub with GPUs for DUNE users) is the natural home —
+*unverified pointer, check current status*. Longer term: the campaign archives are justIN
+production outputs, so they likely exist in DUNE Rucio/MetaCat storage reachable from FNAL —
+getting the dataset name removes the wcgpu1 dependency entirely.
+
 Written references the notebooks link into:
 - [`../docs/PRIMER.md`](../docs/PRIMER.md) — concepts, textbook-style
 - [`../docs/RUNBOOK.md`](../docs/RUNBOOK.md) — shell-level setup (installs, GPU driver), which cannot run in a notebook
