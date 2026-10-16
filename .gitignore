@@ -11,3 +11,6 @@ __pycache__/
 # misc
 nohup.out
 *~
+
+# private strategy docs + copyrighted PDFs — never push
+private/

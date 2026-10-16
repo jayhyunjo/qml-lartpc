@@ -4,9 +4,8 @@ Can a classifier built partly from a small **quantum circuit** match a conventio
 on liquid-argon TPC images **using far fewer adjustable parameters** — and if it can, is the cause
 *quantum*, or merely *small*? Two published studies claim an advantage, both on simulation only,
 both in the 100–1,000-training-sample regime. This project reproduces that claim under controlled
-conditions on DUNE FD simulation (**Phase A**), then tests — for the first time anywhere — whether
-it survives contact with *real detector data*, using ProtoDUNE-HD beam data whose upstream
-instrumentation provides image-independent truth labels (**Phase B**).
+conditions on DUNE FD simulation (**Phase A**), then tests whether it survives contact with *real
+detector data* (**Phase B**).
 
 A null result is expected and publishable. The study measures a comparison; it does not set out to
 make QML win.
@@ -36,8 +35,6 @@ seed-stable than small CNNs. Next step: the equal-budget tuned study.
 
 | path | contents |
 |---|---|
-| `docs/qml-lartpc-research-plan.md` | **the plan** — hypotheses, control ladder, Phase B, milestones |
-| `docs/primary-source-findings.md` | audit of the four reference papers, from primary sources |
 | `docs/PRIMER.md` / `docs/RUNBOOK.md` | concepts textbook · shell-level setup |
 | `qmllar/` | the quanvolution in three cross-validated implementations (PennyLane / numpy / torch, agreement ~1e-15) + patch extraction |
 | `tests/` | the cross-checks — they have caught three real, silent bugs; run after any change |
@@ -50,7 +47,10 @@ Training data is **not** in the repo: `data/patches_31.npz` (201 MB) rebuilds in
 (`/data/0/jjo/WC_AIML`, BNL `wcgpu1`; override location with `WC_AIML_BASE`). Inventory and the
 one dangerous labelling convention: `docs/wc-aiml-dataset-inventory.md`.
 
----
-*Private repository — contains unpublished strategy and critique of published work. Do not
-redistribute without asking (and `docs/reference_papers/` would need pruning before any public
-release).*
+## Scope of this repository
+
+Code, executed notebooks, and technical documentation. The research plan, the primary-source
+audit of the reference papers, and the reference PDFs are **internal documents not included
+here** — references to "the plan" or "findings §…" inside notebooks and docs point to those.
+Results shown are **preliminary and un-reviewed** (single configurations, no hyperparameter
+search; see the caveats inside each notebook) and are not DUNE collaboration results.

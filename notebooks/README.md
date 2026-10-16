@@ -16,4 +16,4 @@ Each ships with its outputs baked in, so you can read before running. Before tru
 Written references the notebooks link into:
 - [`../docs/PRIMER.md`](../docs/PRIMER.md) — concepts, textbook-style
 - [`../docs/RUNBOOK.md`](../docs/RUNBOOK.md) — shell-level setup (installs, GPU driver), which cannot run in a notebook
-- [`../docs/qml-lartpc-research-plan.md`](../docs/qml-lartpc-research-plan.md) — the plan these notebooks serve
+- the research plan the notebooks cite ("plan §…") is an internal document, not in this repository
