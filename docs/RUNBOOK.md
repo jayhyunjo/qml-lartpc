@@ -272,7 +272,67 @@ map to the same angle. See [PRIMER §3.4](PRIMER.md#34-charge-normalisation).
 
 ---
 
-## 6. Troubleshooting
+## 7. Running the notebooks over SSH (JupyterLab)
+
+The server runs on the remote machine; your laptop only forwards a port. **The `ssh -L` command
+goes on your laptop, never on the remote machine** — running it remotely creates a tunnel from the
+machine to itself that silently swallows the connection.
+
+### Normal case — server already running
+
+```
+# 1. on your LAPTOP (add -f to background it; otherwise leave the terminal open)
+ssh -N -L 8787:localhost:8787 <remote-alias>
+
+# 2. in your browser
+http://127.0.0.1:8787/lab
+```
+
+`ssh -N` prints nothing and returns no prompt — **that is success**, not a hang. Ctrl-C closes the
+tunnel.
+
+### If the browser cannot connect — restart the server
+
+```
+ssh <remote-alias>
+tmux ls                       # is there a 'jupyter' session?
+
+# if not, start one (survives logout, disconnects, and other people's sessions):
+tmux new-session -d -s jupyter -c /home/jjo/Work/QML \
+    "jupyter lab --no-browser --port=8787 --ip=127.0.0.1"
+
+ss -tln | grep 8787           # confirm it is listening (can take ~30 s on a loaded box)
+```
+
+Then redo the tunnel step.
+
+### Housekeeping
+
+| action | where | command |
+|---|---|---|
+| watch the server log | remote | `tmux attach -t jupyter` (detach: **Ctrl-B** then **D**) |
+| stop the server | remote | `tmux kill-session -t jupyter` |
+| stop the tunnel | laptop | `pkill -f 8787:localhost:8787` |
+| find the token | remote | `python3 -c "import glob,json;[print(json.load(open(f))['token']) for f in glob.glob('~/.local/share/jupyter/runtime/jpserver-*.json'.replace('~','$HOME'))]"` |
+
+A fixed password avoids tokens entirely: run
+`python3 -c "from jupyter_server.auth import passwd; print(passwd())"`, put the hash in
+`~/.jupyter/jupyter_server_config.json` under `ServerApp.password`, and restart the server.
+
+### Diagnosing a dead tunnel
+
+Run the tunnel in the foreground with `-v`, then hit it with `curl` from a second terminal. The
+ssh output names the cause:
+
+| ssh prints | meaning |
+|---|---|
+| `channel N: open failed: administratively prohibited` | the remote sshd forbids port forwarding |
+| `channel N: new direct-tcpip` then immediately `free` | tunnel fine — **nothing is listening** on the remote port |
+| nothing, and curl returns a page | it works |
+
+---
+
+## 8. Troubleshooting
 
 | Symptom | Cause | Fix |
 |---|---|---|
