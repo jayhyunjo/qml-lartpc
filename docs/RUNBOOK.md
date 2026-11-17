@@ -346,6 +346,8 @@ ssh output names the cause:
 | `test_fast_matches_pennylane.py` → MISMATCH | the two implementations diverged | check `n_channels` and per-reupload parameters |
 | `FileNotFoundError: Campaign data not found` | the dataset moved | set `export WC_AIML_BASE=/path/to/training_samples` |
 | Build reports many archive errors | corrupt tar, or `/dev/shm` full | `df -h /dev/shm`; script prints first 3 errors |
+| Loading the dataset takes minutes | decompressing the 1.6 GB patch array | use `qmllar.data.load_patches()` (memmap cache); set `$QML_CACHE_DIR` for local disk |
+| Imports take minutes | conda env on a network filesystem — `torch` alone is 14k files | install the env on local disk |
 | Identical runs give different results | different random seeds | expected — [PRIMER §6.6](PRIMER.md#66-seeds) |
 
 **Which CUDA index?** `cu124` → torch 2.6.0, `cu126` → torch 2.14.0, `cu128` → torch 2.11.0. Any

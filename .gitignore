@@ -14,3 +14,6 @@ nohup.out
 
 # private strategy docs + copyrighted PDFs — never push
 private/
+
+# fast memmap cache rebuilt on demand by qmllar.data.load_patches
+data/cache/

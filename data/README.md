@@ -5,3 +5,5 @@
   notebook 00. Raw charge — normalise at load time (`qmllar.preprocess`).
 
 Loading the compressed arrays takes ~1–2 minutes (the `patches` array is 1.6 GB uncompressed).
+
+- `cache/` — uncompressed memmap cache built automatically on first `qmllar.data.load_patches()` (gitignored). Decompressing the .npz costs ~160 s; the cache makes later loads ~0.1 s. Set `$QML_CACHE_DIR` to put it on faster local disk.
